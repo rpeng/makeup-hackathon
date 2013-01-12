@@ -1,6 +1,7 @@
+import urllib
 import facebook
 
-my_token = "AAACEdEose0cBAPaDtHkSiHTZAmAGusn0FWHK3wM4ZC7xWyAXlnDtBZBr8832XNM1CMnhwZByYDZCv8l7JltXU4XghiOqUTyQnWVfrRTpf4qEsSRkvJsJa"
+my_token = "AAACEdEose0cBADRe0ZA9Lm7arIPwkRns2ssXCRlcpCOYkmhZAuKJKuSp8ELcaB15rLcwdfTBl53gIJJ4HU4MfZBorLfSNcbvuDIO4x8UQQ8e32iNN9R"
 api = facebook.GraphAPI(my_token)
 
 def get_photo_array():
@@ -13,7 +14,7 @@ def get_photo_array():
             width="25",
             height="25")['data']
         photos.append(data)
-        if len(photos) > 150: # for debugging, only download 20
+        if len(photos) > 300: # for debugging, only download 20
             break
     return photos
 

@@ -46,6 +46,15 @@ class AuthLogoutHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         self.clear_cookie("user")
         self.redirect(self.get_argument("next", "/"))
 
+class ProcessHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        self.write("Processing...")
+        print self.get_argument("src")
+    
+    def handle_request(self, response):
+        pass
+
 class ChooseHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
@@ -73,6 +82,7 @@ class MainHandler(BaseHandler):
 application = tornado.web.Application([
     (r"/", MainHandler),
     (r"/choose", ChooseHandler),
+    (r"/process", ProcessHandler),
     (r"/auth/login", AuthLoginHandler),
     (r"/auth/logout", AuthLogoutHandler),
 ],
