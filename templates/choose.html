@@ -1,35 +1,53 @@
 <html>
  <head>
-     <style>
-         td
-         {
-             text-align:center;
-         }
-     </style>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
+	<style type="text/css">
+	    div, p
+	    {
+            text-align:center;
+	    }
+	 body {
+		padding-top: 30px;
+		}
+	</style>
+	<script type="text/javascript">
+	    window.onresize = function (event) {
+	        img = document.getElementById("logo")
+	        if (window.innerWidth < 400) {
+	            img.src = "../static/AppLogoSmall.png";
+	            img.style = "";
+	        } else {
+	            img.src = "../static/AppLogo.png";
+	            img.style = "min-width:300px";
+	        }
+	    }
+	</script>
      <title>Choose</title></head>
  <body>
-     <table style="border: 1px solid blue; width: 314px; background-color:#bacbf3">
-         <tr>
-            <td style="text-align:left">
-                <img src="makeup.jpg"/>
-                <hr/>
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <form action="/auth/logout" method="get">
-                    <input type="submit" style="background-color:royalblue;font-weight:bold; font-size:14px; color:white" value="Logout" >
-                </form>
-            </td>
-         </tr>
-         <tr>
-             <td>
-                 Welcome {{ user_name }}!
-             </td>
-         </tr>
-         <tr>
-             <td><a href="/process?src={{ profile_src }}"><img src="{{ profile_src }}"/></a></td>
-         </tr>
-         <tr><td style="font-size:16px">or</td></tr>
-         <tr><td><input type="submit" value="upload" style="background-color:royalblue;font-weight:bold; font-size:14px; color:white"/></td></tr>
-     </table>
+     <div id="container">
+		<div class="hero-unit" style="max-width:600px">
+		<!--<h1>Makeup</h1>-->
+		<img id="logo" src="../static/AppLogo.png" class="img-rounded" style="min-width:00px">
+
+		<p>
+            Welcome {{ user_name }}!
+		</p>
+            <div>
+                <a href="/process?src={{ profile_src }}"><img src="{{ profile_src }}"/></a>
+            </div>
+            <p>or</p>
+            <div><input type="submit" value="Upload to Facebook" class="btn btn-primary .btn-block"/></div>
+
+            		<p>
+			<form action="/auth/logout" method="get">
+			    <input type="submit" value="Logout" class="btn btn-primary .btn-block"/>
+		    </form>
+		</p>
+		</div>
+	</div>
+
 <p> version 0.1</p>
  </body>
  </html>
