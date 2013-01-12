@@ -91,6 +91,9 @@ class MainHandler(BaseHandler):
         else:
             self.render("templates/index.html")
 
+    def post(self):
+        return self.get()
+
 
 application = tornado.web.Application([
     (r"/", MainHandler),
