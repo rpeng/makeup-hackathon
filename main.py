@@ -1,4 +1,4 @@
-import logging
+import os
 import urllib2
 import facebook
 
@@ -90,7 +90,7 @@ class MainHandler(BaseHandler):
 application = tornado.web.Application([
     (r"/", MainHandler),
     (r"/choose", ChooseHandler),
-    (r'/favicon.ico', tornado.web.StaticFileHandler, {'path': "/static/favicon.ico"}),
+    (r'/(favicon.ico)', tornado.web.StaticFileHandler, {'path': "/static/favicon.ico"}),
     (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': "/static/"}),
     (r"/process", ProcessHandler),
     (r"/auth/login", AuthLoginHandler),
@@ -98,6 +98,7 @@ application = tornado.web.Application([
 ],
     cookie_secret = cookie_secret,
     login_url = "/auth/login",
+    static_path = os.path.join(os.path.dirname(__file__), "static"),
 )
  
 if __name__ == "__main__":
