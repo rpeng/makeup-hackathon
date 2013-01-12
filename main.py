@@ -52,7 +52,7 @@ class AuthLogoutHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
 class ProcessHandler(BaseHandler):
     @tornado.web.authenticated
-    def get(self):
+    def post(self):
         #self.write("Processing...")
         api = facebook.GraphAPI(self.current_user["access_token"])
         reference = urllib2.urlopen(self.get_argument("src")).read()
@@ -84,7 +84,7 @@ class UploadHandler(BaseHandler):
     def post(self):
         api = facebook.GraphAPI(self.current_user["access_token"])
         reference = self.request.files["pic"][0]["body"]
-        components = get_photo_array(api, maxPhotos = 10)
+        components = get_photo_array(api, maxPhotos = 80)
 
         self.set_header("Content-Type", "image/jpg")
         result = process_image(reference, components)
