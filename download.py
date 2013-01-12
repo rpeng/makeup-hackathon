@@ -1,10 +1,7 @@
-import urllib
 import facebook
 
-my_token = "AAACEdEose0cBAAHrG1I6ae0tINfsp1CdN7pAlaecafXYvEoFPFVJZBGAX8YCxp41GwZCorvzYs1esZCoZCh1KYHQvoNq77RwdIBmzZBZCJ4AZDZD"
-api = facebook.GraphAPI(my_token)
 
-def get_photo_array(maxPhotos = 150):
+def get_photo_array(api, maxPhotos = 150):
     photos = []
     friends = api.fql("SELECT uid2 FROM friend WHERE uid1 = me() ORDER BY rand()")
     for friend in friends:
@@ -25,4 +22,8 @@ def dump_photo_array(photos, path):
         with open(path+"/"+str(counter)+".jpeg", 'wb') as f:
             f.write(photo)
             counter += 1
+
+if __name__ == "__main__":
+    my_token = "AAACEdEose0cBAAHrG1I6ae0tINfsp1CdN7pAlaecafXYvEoFPFVJZBGAX8YCxp41GwZCorvzYs1esZCoZCh1KYHQvoNq77RwdIBmzZBZCJ4AZDZD"
+    api = facebook.GraphAPI(my_token)
 

@@ -1,4 +1,5 @@
 import logging
+import urllib2
 import facebook
 
 import tornado.ioloop
@@ -6,6 +7,8 @@ import tornado.web
 import tornado.auth
 import tornado.escape
 
+from image_processing import process_image
+from download import get_photo_array
 from settings import facebook_app_key, facebook_app_secret, cookie_secret
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -49,8 +52,13 @@ class AuthLogoutHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 class ProcessHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        self.write("Processing...")
-        print self.get_argument("src")
+        #self.write("Processing...")
+        api = facebook.GraphAPI(self.current_user["access_token"])
+        reference = urllib2.urlopen(self.get_argument("src")).read()
+        components = get_photo_array(api, maxPhotos = 20)
+        result = process_image(reference, components)
+        self.set_header("Content-Type", "image/jpg")
+        self.write(result)
     
     def handle_request(self, response):
         pass
