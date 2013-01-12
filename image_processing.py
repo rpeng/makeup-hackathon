@@ -22,7 +22,7 @@ def ColourDistance0(x, y):
 
 def ColourDistance1(x, y):
     # Ranges from 0 to 765
-    assert len(x) == len(y)
+    assert len(x) >= 3 and len(y) >= 3
     rmean = (x[0]+y[0])/2
     r=x[0]-y[0]
     g=x[1]-y[1]
