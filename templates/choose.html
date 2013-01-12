@@ -33,7 +33,13 @@
 	            img.style = "min-width:300px";
 	        }
 	    }
-		window.onload = window.onresize;
+	    window.onload = window.onresize;
+	    function checkfile() {
+	        var filename=document.getElementById("upload").getAttribute("filename");
+	        if (filename==null || filename=="")
+	            return false;
+            return true;
+	    }
 	</script>
      <title>Choose</title></head>
  <body>
@@ -49,7 +55,7 @@
                 <a href="/process?src={{ profile_src }}"><img src="{{ profile_src }}"/></a>
             </div>
             <p>Use this picture<br />Or<br />Upload a picture</p>
-            <form action="/upload" method="post" enctype="multipart/form-data">
+            <form action="/upload" onsubmit="return checkfile()" method="post" enctype="multipart/form-data">
             <input type="file" id="upload" accept="image/*" name="pic" size="chars">            <br />
             <input type="submit" name="submit" value="Upload"class="btn btn-primary .btn-block"/>
             </form>
