@@ -56,7 +56,7 @@ class ProcessHandler(BaseHandler):
         #self.write("Processing...")
         api = facebook.GraphAPI(self.current_user["access_token"])
         reference = urllib2.urlopen(self.get_argument("src")).read()
-        components = get_photo_array(api, maxPhotos = 100)
+        components = get_photo_array(api, maxPhotos = 80)
 
         self.set_header("Content-Type", "image/jpg")
         result = process_image(reference, components)
