@@ -83,16 +83,13 @@ class UploadHandler(BaseHandler):
     @tornado.web.authenticated
     def post(self):
         api = facebook.GraphAPI(self.current_user["access_token"])
-        file1 = self.request.files['pic'][0]
-        original_fname = file1['filename']
-        if original_fname!="":
-            reference = self.request.files["pic"][0]["body"]
-            components = get_photo_array(api, maxPhotos = 10)
-    
-            self.set_header("Content-Type", "image/jpg")
-            result = process_image(reference, components)
-            self.write(result)
-            
+        reference = self.request.files["pic"][0]["body"]
+        components = get_photo_array(api, maxPhotos = 10)
+
+        self.set_header("Content-Type", "image/jpg")
+        result = process_image(reference, components)
+        self.write(result)
+        
 class MainHandler(BaseHandler):
     # For the index page
     def get(self):
