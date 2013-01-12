@@ -64,9 +64,6 @@ class ProcessHandler(BaseHandler):
         # store into data base
         #store_image(self.current_user["id"], result)
 
-    def handle_request(self, response):
-        pass
-
 class ChooseHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
@@ -77,12 +74,22 @@ class ChooseHandler(BaseHandler):
             redirect="false",
             type="large"
         )['data']['url']
-        print self.current_user
 
         self.render("templates/choose.html",
                     user_name = self.current_user["name"],
                     profile_src = src_uri)
 
+class UploadHandler(BaseHandler):
+    @tornado.web.authenticated
+    def post(self):
+        api = facebook.GraphAPI(self.current_user["access_token"])
+        reference = self.request.files["pic"][0]["body"]
+        components = get_photo_array(api, maxPhotos = 10)
+
+        self.set_header("Content-Type", "image/jpg")
+        result = process_image(reference, components)
+        self.write(result)
+        
 class MainHandler(BaseHandler):
     # For the index page
     def get(self):
@@ -98,6 +105,7 @@ class MainHandler(BaseHandler):
 application = tornado.web.Application([
     (r"/", MainHandler),
     (r"/choose", ChooseHandler),
+    (r"/upload", UploadHandler),
     (r'/(favicon.ico)', tornado.web.StaticFileHandler, {'path': "/static/favicon.ico"}),
     (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': "/static/"}),
     (r"/process", ProcessHandler),
