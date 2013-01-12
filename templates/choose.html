@@ -35,8 +35,8 @@
 	    }
 	    window.onload = window.onresize;
 	    function checkfile() {
-	        var filename=document.getElementById("upload").getAttribute("filename");
-	        if (filename==null || filename=="")
+	        var filename = document.getElementById("upload").value;
+	        if (filename==null || filename==""||filename.indexOf('.')==-1)
 	            return false;
             return true;
 	    }
