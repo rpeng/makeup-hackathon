@@ -7,6 +7,8 @@
 	    div, p
 	    {
             text-align:center;
+			margin-left:auto;
+			margin-right:auto;
 	    }
 	 body {
 		padding-top: 30px;
@@ -37,8 +39,9 @@
             <div>
                 <a href="/process?src={{ profile_src }}"><img src="{{ profile_src }}"/></a>
             </div>
-            <p>or</p>
-            <div><input type="submit" value="Upload to Facebook" class="btn btn-primary .btn-block"/></div>
+            <p>Use this picture<br />Or</p>
+            
+            <div><input type="submit" value="Upload New Picture" class="btn btn-primary .btn-block"/></div>
 
             		<p>
 			<form action="/auth/logout" method="get">
@@ -47,7 +50,5 @@
 		</p>
 		</div>
 	</div>
-
-<p> version 0.1</p>
  </body>
  </html>

@@ -14,28 +14,30 @@
 	<script type="text/javascript">
 		window.onresize = function(event) {
 			img = document.getElementById("logo")
-			if (window.innerWidth < 600) {
+			if (window.innerWidth < 400) {
 				img.src="../static/AppLogoSmallTransparent.png";
 				img.style="";
 			} else {
 				img.src="../static/AppLogo.png";
-				img.style="min-width:400px";
+				img.style="min-width:300px";
 			}
 		}
 	</script>
  </head>
  <body>
 	<div class="container">
-		<div class="hero-unit" style="max-width:1000px">
+		<div class="hero-unit" style="max-width:900px">
 		<!--<h1>Makeup</h1>-->
-		<img id="logo" src="../static/AppLogo.png" class="img-rounded" style="min-width:00px">
+		<img id="logo" src="../static/AppLogo.png" class="img-rounded">
 		<p>
 			Welcome to Makeup! This exciting app will create a mosaic of 
             a picture of your choosing from a list of your friend's profile pictures.</td>
 		</p>
+		<p>
 		<form action="/choose" method="get">
 			<input type="submit" value="Connect to Facebook" class="btn btn-primary .btn-block"/>
 		</form>
+		</p>
 		</div>
 	</div>
  </body>
