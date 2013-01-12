@@ -1,6 +1,6 @@
 import facebook
 
-my_token = "AAACEdEose0cBAEKG4ZAXuUc5GXvqI9bAZAgEXQh6SzaNlLCYyBlznSk26za80ACll5YakxwOZBuz4qiWRTqqNKLba2wuzw3KDf4PDxVSbEGGGZCvBFIf"
+my_token = "AAACEdEose0cBAPaDtHkSiHTZAmAGusn0FWHK3wM4ZC7xWyAXlnDtBZBr8832XNM1CMnhwZByYDZCv8l7JltXU4XghiOqUTyQnWVfrRTpf4qEsSRkvJsJa"
 api = facebook.GraphAPI(my_token)
 
 def get_photo_array():

@@ -3,3 +3,5 @@ include/
 lib/
 share/
 .Python
+*.swp
+*.pyc
