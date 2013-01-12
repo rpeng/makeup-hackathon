@@ -11,8 +11,9 @@ def get_photo_array(maxPhotos = 150):
         data = api.get_connections(
             friend['uid2'],
             "picture",
-            width="25",
-            height="25")['data']
+            width = 25,
+            height = 25)['data']
+            
         photos.append(data)
         if len(photos) > maxPhotos: # for debugging, only download 20
             break
@@ -21,7 +22,7 @@ def get_photo_array(maxPhotos = 150):
 def dump_photo_array(photos, path):
     counter = 0
     for photo in photos:
-        with open(path+"/"+str(counter)+".jpeg", 'w') as f:
+        with open(path+"/"+str(counter)+".jpeg", 'wb') as f:
             f.write(photo)
             counter += 1
 
