@@ -1,6 +1,5 @@
 import logging
-#import urllib2
-from eventlet.green import urllib2
+import urllib2
 import facebook
 
 import tornado.ioloop
@@ -56,7 +55,7 @@ class ProcessHandler(BaseHandler):
         #self.write("Processing...")
         api = facebook.GraphAPI(self.current_user["access_token"])
         reference = urllib2.urlopen(self.get_argument("src")).read()
-        components = get_photo_array(api, maxPhotos = 100)
+        components = get_photo_array(api, maxPhotos = 150)
         result = process_image(reference, components)
         self.set_header("Content-Type", "image/jpg")
         self.write(result)
@@ -91,6 +90,8 @@ class MainHandler(BaseHandler):
 application = tornado.web.Application([
     (r"/", MainHandler),
     (r"/choose", ChooseHandler),
+    (r'/favicon.ico', tornado.web.StaticFileHandler, {'path': "/static/favicon.ico"}),
+    (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': "/static/"}),
     (r"/process", ProcessHandler),
     (r"/auth/login", AuthLoginHandler),
     (r"/auth/logout", AuthLogoutHandler),

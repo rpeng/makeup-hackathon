@@ -36,8 +36,7 @@ if user:
 import cgi
 import time
 import urllib
-#import urllib2
-from eventlet.green import urllib2
+import urllib2
 import httplib
 import hashlib
 import hmac
