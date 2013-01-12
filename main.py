@@ -1,4 +1,5 @@
 import logging
+import facebook
 
 import tornado.ioloop
 import tornado.web
@@ -45,14 +46,33 @@ class AuthLogoutHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         self.clear_cookie("user")
         self.redirect(self.get_argument("next", "/"))
 
-
-class MainHandler(BaseHandler):
+class ChooseHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        self.write("Hello, " + self.current_user["name"])
+        api = facebook.GraphAPI(self.current_user["access_token"])
+        src_uri = api.get_connections(
+            "me", 
+            "picture", 
+            redirect="false",
+            type="large"
+        )['data']['url']
+
+        self.render("templates/choose.html",
+                    user_name = self.current_user["name"],
+                    profile_src = src_uri)
+
+class MainHandler(BaseHandler):
+    # For the index page
+    def get(self):
+        if self.current_user:
+            self.redirect("/choose")
+        else:
+            self.render("templates/index.html")
+
 
 application = tornado.web.Application([
     (r"/", MainHandler),
+    (r"/choose", ChooseHandler),
     (r"/auth/login", AuthLoginHandler),
     (r"/auth/logout", AuthLogoutHandler),
 ],
