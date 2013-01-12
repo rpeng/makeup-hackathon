@@ -5,3 +5,7 @@ share/
 .Python
 *.swp
 *.pyc
+*.jpeg
+*.jpg
+*.DS_Store
+*.bmp

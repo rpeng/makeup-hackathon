@@ -5,7 +5,7 @@ import os
 
 #RefImagePath = "testing/image.jpeg"
 RefImagePath = "testing/image.jpeg"
-CpntImageDir = "testing/photos"
+CpntImageDir = "testing/ericPhotos"
 FileFormats = ["jpg", "jpeg", "gif", "bmp", "png"]
 MosaicFilename = "mosaic"
 
@@ -18,7 +18,7 @@ def LoadCpntImages():
     filenames = []
     for fmt in FileFormats:
         filenames.extend(glob.glob(CpntImageDir+'/*.'+fmt))
-    
+   
     for file in filenames:
         cpntImageStreams.append(open(file, "rb").read())
 

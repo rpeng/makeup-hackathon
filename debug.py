@@ -1,6 +1,6 @@
 import facebook
 
-my_token = "AAACEdEose0cBAEKG4ZAXuUc5GXvqI9bAZAgEXQh6SzaNlLCYyBlznSk26za80ACll5YakxwOZBuz4qiWRTqqNKLba2wuzw3KDf4PDxVSbEGGGZCvBFIf"
+my_token = "AAACEdEose0cBAAHrG1I6ae0tINfsp1CdN7pAlaecafXYvEoFPFVJZBGAX8YCxp41GwZCorvzYs1esZCoZCh1KYHQvoNq77RwdIBmzZBZCJ4AZDZD"
 
 api = facebook.GraphAPI(my_token)
 
