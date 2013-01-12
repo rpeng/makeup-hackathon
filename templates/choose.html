@@ -48,11 +48,16 @@
 	        }
 	    }
 	    window.onload = window.onresize;
+		function fadeout() {
+			document.getElementById("prepare").style.display = "none";
+			document.getElementById("processing").style.display = "block";
+			return true;
+		}
 	    function checkfile() {
 	        var filename = document.getElementById("upload").value;
 	        if (filename==null || filename==""||filename.indexOf('.')==-1)
 	            return false;
-            return true;
+            return fadeout();
 	    }
 	</script>
 	<script>
@@ -65,6 +70,7 @@
 		<!--<h1>Makeup</h1>-->
 		<img id="logo" src="../static/AppLogo.png" class="img-rounded">
 
+		<div id = "prepare">
 		<p>
             Welcome {{ user_name }}!
 		</p>
@@ -83,7 +89,7 @@
 						</form>
 						</td>
 						<td width="50%" style="text-align: center">
-						<form action="/upload" method="post" enctype="multipart/form-data">
+						<form action="/upload" method="post" enctype="multipart/form-data" onsubmit="checkfile()" >
 							<div class="fileupload fileupload-new" data-provides="fileupload">
 							<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
 								<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" /></div>
@@ -95,7 +101,7 @@
 							<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 							</div>
 							</div>
-              <input type="submit" name="submit" value="Upload" onsubmit="checkfile()" class="btn btn-primary .btn-block"/>
+						<input type="submit" name="submit" value="Upload" onsubmit="checkfile()" class="btn btn-primary .btn-block"/>
 						</form>
 						</td>
 					</tr>
@@ -103,6 +109,16 @@
 			</table>
 
 			<a href="/auth/logout" class="logout">logout</a>
+			</div>
+			<div id = "processing" style="display: none">
+				<p>
+				Your mosaic is being constructed. This should only take a minute
+				so don't leave yet.
+				</p>
+				<div style="text-align: center;">
+					<img src="../static/loading.gif" style="margin: auto">
+				</div>
+			</div>
 		</div>
 	</div>
 
