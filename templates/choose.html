@@ -3,6 +3,11 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
 	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
+	<!--<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-fileupload.js">-->
+	<link rel="stylesheet" type="text/css" href="fileupload/bootstrap-fileupload.css">
+	<script type="text/javascript" src="../static/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="fileupload/bootstrap-fileupload.js"></script>
+
 	<style type="text/css">
 	    div, p
 	    {
@@ -13,7 +18,7 @@
 	 body {
 		padding-top: 30px;
 		}
-    #upload {
+    #upload-no {
       display: block;
       margin: auto;      
       padding: 5px;
@@ -21,6 +26,7 @@
       border-style: solid;
       border-color: gray;
     }
+	
   </style>
 	<script type="text/javascript">
 	    window.onresize = function (event) {
@@ -33,34 +39,62 @@
 	            img.style = "min-width:300px";
 	        }
 	    }
-		window.onload = window.onresize;
+	    window.onload = window.onresize;
+	    function checkfile() {
+	        var filename = document.getElementById("upload").value;
+	        if (filename==null || filename==""||filename.indexOf('.')==-1)
+	            return false;
+            return true;
+	    }
+	</script>
+	<script>
+    $('.fileupload').fileupload();
 	</script>
      <title>Choose</title></head>
  <body>
-     <div id="container">
+     <div id="container" style="max-width: 600px">
 		<div class="hero-unit">
 		<!--<h1>Makeup</h1>-->
-		<img id="logo" src="../static/AppLogo.png" class="img-rounded" style="min-width:00px">
+		<img id="logo" src="../static/AppLogo.png" class="img-rounded">
 
 		<p>
             Welcome {{ user_name }}!
 		</p>
-            <div>
-                <a href="/process?src={{ profile_src }}"><img src="{{ profile_src }}"/></a>
-            </div>
-            <p>Use this picture<br />Or<br />Upload a picture</p>
-            <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" id="upload" accept="image/*" name="pic" size="chars">            <br />
-            <input type="submit" name="submit" value="Upload"class="btn btn-primary .btn-block"/>
-            </form>
-            <p>
-            
+			<table>
+				<thead></thead>
+				<tbody>
+					<tr>
+						<td width="50%" style="text-align: center">
+						<form action="/process?src={{ profile_src }}" method="post" enctype="multipart/form-data">
+							<img src="{{ profile_src }}"/></a>
+							<br/>
+							<input type="submit" name="submit" value="Use Profile Picture" class="btn btn-primary"/>
+						</form>
+						</td>
+						<td width="50%" style="text-align: center">
+						<form action="/upload" method="post" enctype="multipart/form-data">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+							<div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+							<div>
+								<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+								<input type="file" accept="image/*" name="pic"/>
+								</span>
+							<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+							</div>
+							</div>
+							</br>
+							<input type="submit" name="submit" value="Upload" onsubmit="checkfile()" class="btn btn-primary .btn-block"/>
+						</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
             <form action="/auth/logout" method="get">
 			    <input type="submit" value="Logout" class="btn btn-primary .btn-block"/>
 		    </form>
 		</div>
 	</div>
 
-<p> version 0.1</p>
  </body>
  </html>
