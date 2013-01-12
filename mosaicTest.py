@@ -4,10 +4,10 @@ import glob
 import os
 
 #RefImagePath = "testing/image.jpeg"
-RefImagePath = "testing/image.jpeg"
+RefImagePath = "testing/ericProf.jpg"
 CpntImageDir = "testing/ericPhotos"
 FileFormats = ["jpg", "jpeg", "gif", "bmp", "png"]
-MosaicFilename = "mosaic"
+MosaicFilename = "eric"
 
 def LoadRefImage():
     return open(RefImagePath, "rb").read()
@@ -39,4 +39,12 @@ def FacebookTest():
     outFile = open("facebook.jpg", "wb")
     outFile.write(mosaic)
     outFile.close()
-    
+
+def HackTest():
+    refImageStream = get_image_from_url(r'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/211085_364348883660343_553562280_n.jpg')
+    cpntImageStreams = LoadCpntImages()
+    mosaic = process_image(refImageStream, cpntImageStreams)
+    outFile = open("hack.jpg", "wb")
+    outFile.write(mosaic)
+    outFile.close()
+
