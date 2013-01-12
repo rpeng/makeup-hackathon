@@ -11,7 +11,15 @@
 	 body {
 		padding-top: 30px;
 		}
-	</style>
+    #upload {
+      display: block;
+      margin: auto;      
+      padding: 5px;
+      border-width: 2px;
+      border-style: solid;
+      border-color: gray;
+    }
+  </style>
 	<script type="text/javascript">
 	    window.onresize = function (event) {
 	        img = document.getElementById("logo")
@@ -37,16 +45,19 @@
             <div>
                 <a href="/process?src={{ profile_src }}"><img src="{{ profile_src }}"/></a>
             </div>
-            <p>Use this picture<br />Or</p>
-            
-            <div><input type="submit" value="Upload to Facebook" class="btn btn-primary .btn-block"/></div>
-
-            		<p>
+            <p>Use this picture<br />Or<br />Upload a picture</p>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" id="upload" accept="image/*" name="pic" size="chars">            <br />
+            <input type="submit" name="submit" value="Upload"class="btn btn-primary .btn-block"/>
+            </form>
+            <p>
 			<form action="/auth/logout" method="get">
 			    <input type="submit" value="Logout" class="btn btn-primary .btn-block"/>
 		    </form>
 		</p>
 		</div>
 	</div>
+
+<p> version 0.1</p>
  </body>
  </html>
