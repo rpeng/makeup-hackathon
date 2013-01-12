@@ -10,6 +10,7 @@ import tornado.escape
 from image_processing import process_image
 from download import get_photo_array
 from settings import facebook_app_key, facebook_app_secret, cookie_secret
+#from database import store_image 
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -55,10 +56,13 @@ class ProcessHandler(BaseHandler):
         #self.write("Processing...")
         api = facebook.GraphAPI(self.current_user["access_token"])
         reference = urllib2.urlopen(self.get_argument("src")).read()
+        components = get_photo_array(api, maxPhotos = 10)
+
         self.set_header("Content-Type", "image/jpg")
-        components = get_photo_array(api, maxPhotos = 150)
         result = process_image(reference, components)
         self.write(result)
+        # store into data base
+        #store_image(self.current_user["id"], result)
 
     def handle_request(self, response):
         pass
@@ -73,6 +77,7 @@ class ChooseHandler(BaseHandler):
             redirect="false",
             type="large"
         )['data']['url']
+        print self.current_user
 
         self.render("templates/choose.html",
                     user_name = self.current_user["name"],
