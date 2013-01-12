@@ -1,12 +1,12 @@
 import urllib
 import facebook
 
-my_token = "AAACEdEose0cBADRe0ZA9Lm7arIPwkRns2ssXCRlcpCOYkmhZAuKJKuSp8ELcaB15rLcwdfTBl53gIJJ4HU4MfZBorLfSNcbvuDIO4x8UQQ8e32iNN9R"
+my_token = "AAACEdEose0cBAAHrG1I6ae0tINfsp1CdN7pAlaecafXYvEoFPFVJZBGAX8YCxp41GwZCorvzYs1esZCoZCh1KYHQvoNq77RwdIBmzZBZCJ4AZDZD"
 api = facebook.GraphAPI(my_token)
 
-def get_photo_array():
+def get_photo_array(maxPhotos = 150):
     photos = []
-    friends = api.fql("SELECT uid2 FROM friend WHERE uid1 = me()")
+    friends = api.fql("SELECT uid2 FROM friend WHERE uid1 = me() ORDER BY rand()")
     for friend in friends:
         data = api.get_connections(
             friend['uid2'],
@@ -14,7 +14,7 @@ def get_photo_array():
             width="25",
             height="25")['data']
         photos.append(data)
-        if len(photos) > 300: # for debugging, only download 20
+        if len(photos) > maxPhotos: # for debugging, only download 20
             break
     return photos
 
