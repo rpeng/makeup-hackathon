@@ -1,0 +1,6 @@
+PIL==1.1.7
+gunicorn==0.17.2
+pycurl==7.19.0
+simplejson==3.0.7
+tornado==2.4.1
+wsgiref==0.1.2
