@@ -26,6 +26,14 @@
       border-style: solid;
       border-color: gray;
     }
+
+    .logout {
+      text-align: right;
+      font-size: 15px;
+      text-decoration: none;
+      float: right;
+      margin-top: 25px;
+    }
 	
   </style>
 	<script type="text/javascript">
@@ -64,10 +72,13 @@
 				<thead></thead>
 				<tbody>
 					<tr>
-						<td width="50%" style="text-align: center">
+						<td width="50%" style="text-align: center; vertical-align: top">
 						<form action="/process?src={{ profile_src }}" method="post" enctype="multipart/form-data">
-							<img src="{{ profile_src }}"/></a>
-							<br/>
+              <div class="image_container" style="width:200px; height: 160px">
+                <img src="{{ profile_src }}"/></a>
+              </div>
+              <div style="height: 43px">
+              </div>
 							<input type="submit" name="submit" value="Use Profile Picture" class="btn btn-primary"/>
 						</form>
 						</td>
@@ -84,17 +95,14 @@
 							<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 							</div>
 							</div>
-							</br>
-							<input type="submit" name="submit" value="Upload" onsubmit="checkfile()" class="btn btn-primary .btn-block"/>
+              <input type="submit" name="submit" value="Upload" onsubmit="checkfile()" class="btn btn-primary .btn-block"/>
 						</form>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
-            <form action="/auth/logout" method="get">
-			    <input type="submit" value="Logout" class="btn btn-primary .btn-block"/>
-		    </form>
+			<a href="/auth/logout" class="logout">logout</a>
 		</div>
 	</div>
 
