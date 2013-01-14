@@ -1,19 +1,25 @@
+import eventlet
+from eventlet.green import urllib2
+
 import facebook
 
 
 def get_photo_array(api, maxPhotos = 150):
     photos = []
     friends = api.fql("SELECT uid2 FROM friend WHERE uid1 = me() ORDER BY rand()")
-    for friend in friends:
+    def dl_image_from_friend(friend):
+        if len(photos) > maxPhotos:
+            return None
         data = api.get_connections(
             friend['uid2'],
             "picture",
             width = 25,
             height = 25)['data']
-            
-        photos.append(data)
-        if len(photos) > maxPhotos: # for debugging, only download 20
-            break
+        return data
+    pool = eventlet.GreenPool()
+    for data in pool.imap(dl_image_from_friend, friends):
+        if data is not None:
+            photos.append(data)
     return photos
 
 def dump_photo_array(photos, path):

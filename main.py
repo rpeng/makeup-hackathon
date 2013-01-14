@@ -1,5 +1,4 @@
 import os
-from eventlet.green import urllib2
 import facebook
 
 import tornado.ioloop
@@ -7,6 +6,7 @@ import tornado.web
 import tornado.auth
 import tornado.escape
 
+from eventlet.green import urllib2
 from image_processing import process_image
 from download import get_photo_array
 from settings import facebook_app_key, facebook_app_secret, cookie_secret
@@ -56,7 +56,7 @@ class ProcessHandler(BaseHandler):
         #self.write("Processing...")
         api = facebook.GraphAPI(self.current_user["access_token"])
         reference = urllib2.urlopen(self.get_argument("src")).read()
-        components = get_photo_array(api, maxPhotos = 80)
+        components = get_photo_array(api, maxPhotos = 300)
 
         self.set_header("Content-Type", "image/jpg")
         result = process_image(reference, components)
@@ -84,7 +84,7 @@ class UploadHandler(BaseHandler):
     def post(self):
         api = facebook.GraphAPI(self.current_user["access_token"])
         reference = self.request.files["pic"][0]["body"]
-        components = get_photo_array(api, maxPhotos = 80)
+        components = get_photo_array(api, maxPhotos = 300)
 
         self.set_header("Content-Type", "image/jpg")
         result = process_image(reference, components)
